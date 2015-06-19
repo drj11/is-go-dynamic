@@ -9,12 +9,6 @@ about Go is dynamic?". There will be some live coding using
 play.golang.org. I'll also briefly outline what I've had
 experience of making things using Go (at ScraperWiki).
 
-## Random idea for presenting
-
-- Use shortcode links to play.golang.org
-- put the links in the slides
-- Just make the entire presentation a series of tabs in the browser
-
 ## Brief Introduction to drj
 
 Programming C, Python, /bin/sh, Lua, JavaScript, Go in some
