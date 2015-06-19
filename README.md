@@ -221,4 +221,12 @@ need it, but we do need to supply a variable to satisfy the
 syntax. Using _ is a signal to the compiler that we are
 deliberately not using the value.
 
+There is some discussion as to whether the right way to
+represent a set is a map from thing to empty struct (as i have
+here), or a map from thing to bool, using a true value as
+indicating set membership. Personally I feel that using empty is
+more type sound; in the bool case, what if there is an entry
+that maps to false? you might accidentally use the wrong sort of
+set membership test.
+
 ## defer()
