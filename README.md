@@ -2,11 +2,12 @@
 
 ## Abstract
 
-I will briefly introduce Go, a systems programming language
-developed by Google and in use at ScraperWiki. Outline some of
-the ways in which Go seems like a dynamic language, and some of
-the ways in which Go seems like a static language. The
-presentation will be largely illustrated with coded examples.
+Can Go replace your favourite dynamic language?
+Go is a systems programming language developed by Google and in use
+at ScraperWiki. Here I'll introduce Go in the context of "what
+about Go is dynamic?". There will be some live coding using
+play.golang.org. I'll also briefly outline what I've had
+experience of making things using Go (at ScraperWiki).
 
 ## Random idea for presenting
 
@@ -23,7 +24,9 @@ presentation will be largely illustrated with coded examples.
 
 - Resizable datastructures: slice (aka list/array); map (aka dict/hash)
 - "infinite" number of Goroutines (similar to greenthreads / coroutines)
+- chan?
 - First class functions
+- defer()
 - Automatic Garbage Collection
 
 - Polymorphism via interface types
@@ -33,9 +36,29 @@ presentation will be largely illustrated with coded examples.
 
 ## What are ScraperWiki using it for?
 
-One major bespoke customer solution: a web app used by thousands
-of users to query, display, and help analyse survey results from
-a people survey in an organisation with 500,000 employees.
+Project Chardonnay: major bespoke customer solution: a web app used by
+thousands of users to query, display, and help analyse survey results
+from a people survey in an organisation with 500,000 employees.
+The backend API is written in Go and is about 7000 lines of
+code. It has some novel features:
+
+30 million row dataset (a few GB per year) is downloaded from S3 and
+parsed into an internal indexed datastructure every time the
+server starts. Using multiple CPUs to do this in parallel means
+that all 7 years can be loaded in about 50 seconds.
+
+Queries are computed every time and consider "every row".
+Response times are in the few millisecond range for the worst
+queries (down from 10 minutes with our protoype in Python /
+PostgreSQL).
+
+Go compiles to a static binary and the Docker image that runs
+the API has only 4 files in its filesystem: our compiled binary,
+/etc/passwd and /etc/group, and a ca-certificates file. The data
+processed by the API is quite sensitive, BL3, and we regard this
+as one of the components in our security fence: even if you
+manage to escape the binary, you're inside a docker container
+with no system utilities.
 
 Many little devops tools, some of which might have wider
 application.
@@ -76,7 +99,7 @@ store a non-string value will fail:
 
 But notice that the failure is at compile time, not runtime.
 
-## Resizable arrays
+## Resizable arrays [030]
 
 The array-like datastructure is called the _slice_. There is
 some scope for confusion here, as Go also has a datastructure
@@ -106,14 +129,35 @@ You can prepend items to a slice, using... append()!:
 slice = append([]int{0}, slice...)
 ```
 
+(note that this is a one element slice that is being prepended,
+any length slice can be used)
+
+A slice is indexed using square brackets, to get or set the
+element:
+
+```
+slice[0] = 99
+```
+
+Slices are 0-based. Length is obtained with the len() function.
+
+Using an inappropriate index is a runtime check and will result in a
+panic.  Generally this quits your program and dumps all stacks. But if
+you're writing a webserver, the server loop recovers from the
+panic and continues serving, so that the panic is isolated to
+the web request that caused it.
+
 ## Resizable hash tables
 
 The hash-table-like datastructure is called the map, as in
-associative map. It's similar the dict() from Python:
+associative map. It's similar to dict() from Python:
 
 ```
-spell := string[int]{1:"one", 2:"two", 3:"three"}
-fmt.Println(spell[1], spell[2], spell[7])
+spell := map[int]string{1: "one", 2: "two", 4: "four"}
+fmt.Println(spell[1], spell[2], spell[3], spell[4])
 ```
 
+Index using square brackets, like slices. Unlike slices,
 
+
+@@@
