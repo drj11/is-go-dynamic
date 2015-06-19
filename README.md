@@ -100,37 +100,6 @@ seamless build and deployment systems.
 Some code is available on github.com
 
 
-## Type Declarations
-
-No need to declare types:
-
-
-```
-package main
-
-import (
-        "fmt"
-        "os"
-)
-
-func main() {
-        a := os.Args[1]
-        fmt.Println(a)
-}
-```
-
-But this is not because variables can hold variables of any type, but
-because the type of the variable can often be _inferred_. In this case
-`a` is inferred to be of type `string`. Subsequently trying to
-store a non-string value will fail:
-
-
-```
-        a = 4
-```
-
-But notice that the failure is at compile time, not runtime.
-
 ## Resizable arrays [030]
 
 The array-like datastructure is called the _slice_. There is
