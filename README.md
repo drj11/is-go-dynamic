@@ -18,15 +18,15 @@ experience of making things using Go (at ScraperWiki).
 ## Brief Introduction to Go
 
 - Systems programming language
+- C like in syntax
 - Static compilation
 - All module resolution / linking done at compilation time
-- Produces single binary (nearly static)
+- Compiles to single binary
 
 - Resizable datastructures: slice (aka list/array); map (aka dict/hash)
-- "infinite" number of Goroutines (similar to greenthreads / coroutines)
-- chan?
 - First class functions
-- defer()
+- "infinite" number of Goroutines (similar to greenthreads / coroutines)
+- goroutines communicate via chan
 - Automatic Garbage Collection
 
 - Polymorphism via interface types
@@ -36,11 +36,12 @@ experience of making things using Go (at ScraperWiki).
 
 ## What are ScraperWiki using it for?
 
-Project Chardonnay: major bespoke customer solution: a web app used by
-thousands of users to query, display, and help analyse survey results
-from a people survey in an organisation with 500,000 employees.
-The backend API is written in Go and is about 7000 lines of
-code. It has some novel features:
+### Project Chardonnay: major bespoke customer solution: a web app
+used by thousands of users to query, display, and help analyse survey
+results from a people survey in an organisation with 500,000 employees.
+Frontend in Python, backend API in Go. About 7000 lines of code.
+
+It has some novel features:
 
 30 million row dataset (a few GB per year) is downloaded from S3 and
 parsed into an internal indexed datastructure every time the
@@ -54,11 +55,30 @@ PostgreSQL).
 
 Go compiles to a static binary and the Docker image that runs
 the API has only 4 files in its filesystem: our compiled binary,
-/etc/passwd and /etc/group, and a ca-certificates file. The data
-processed by the API is quite sensitive, BL3, and we regard this
+/etc/passwd and /etc/group, and a ca-certificates file (and
+actually 2 more that I just discovered: a redundant .gitignore
+and a Dockerfile). The data processed by the API is quite sensitive,
+IL2, so we have to take care in safeguarding the data. We regard Go's
+ability to compile down to very nearly standalone binaries
 as one of the components in our security fence: even if you
 manage to escape the binary, you're inside a docker container
-with no system utilities.
+with only one binary file and no system utilities.
+
+### pdftables.com
+
+pdftables.com is a relatively new product from ScraperWiki; the
+frontend is written in Go, with other parts written in Go and
+Python.
+
+
+### Hanoverd
+
+https://github.com/scraperwiki/hanoverd
+
+Allows seamless switching from one deployed version of a
+dockerised application to another.
+
+And other devops tools.
 
 Many little devops tools, some of which might have wider
 application.
@@ -70,7 +90,7 @@ Some code is available on github.com
 
 ## Type Declarations
 
-No deed to declare types:
+No need to declare types:
 
 
 ```
@@ -160,4 +180,4 @@ fmt.Println(spell[1], spell[2], spell[3], spell[4])
 Index using square brackets, like slices. Unlike slices,
 
 
-@@@
+## defer()
