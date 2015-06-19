@@ -93,6 +93,8 @@ seamless build and deployment systems.
 
 Some code is available on github.com
 
+## Hello World
+
 
 ## Resizable arrays [030]
 
@@ -117,6 +119,9 @@ You can extend a slice with another slice, using append():
 extra := []int{4,5,6}
 slice = append(slice, extra...)
 ```
+
+(notice in this example, the difference between initialisation
+and assignment)
 
 You can prepend items to a slice, using... append()!:
 
@@ -152,7 +157,34 @@ spell := map[int]string{1: "one", 2: "two", 4: "four"}
 fmt.Println(spell[1], spell[2], spell[3], spell[4])
 ```
 
-Index using square brackets, like slices. Unlike slices,
+Index using square brackets, like slices. Unlike slices, trying
+to access a map entry that does not exist does not cause a
+runtime panic. Instead we get an empty string. Well we get a
+string in this case because the map is typed to return string.
+The empty string is the *zero value* for the string type. Every
+type has a *zero value*, which is 0 for numeric types, false
+for the bool type, the nil map for all maps, and so on.
+
+How do we tell the difference between having a map entry that is
+an empty string, and having no map entry at all? When assigning
+the result of a map lookup, Go has a special form with an extra
+variabe (traditionally called ok):
+
+```
+three, ok := spell[3]
+fmt.Println(three, ok)
+```
+
+Like slices, the number of elements in the map is returned by the len
+function:
+
+```
+fmt.Println(len(spell))
+```
+
+
+## sets
+
 
 
 ## defer()
