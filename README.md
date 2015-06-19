@@ -15,6 +15,17 @@ experience of making things using Go (at ScraperWiki).
 - put the links in the slides
 - Just make the entire presentation a series of tabs in the browser
 
+## Brief Introduction to drj
+
+Programming C, Python, /bin/sh, Lua, JavaScript, Go in some
+combination for over 20 years.
+
+First Engineer at ScraperWiki
+
+ScraperWiki data rich web applications
+Liverpool
+Since 2009
+
 ## Brief Introduction to Go
 
 - Systems programming language
@@ -31,12 +42,11 @@ experience of making things using Go (at ScraperWiki).
 
 - Polymorphism via interface types
 - dynamic type switch
-
 - plenty of reflection; enough to implement JSON marshalling
 
-## What are ScraperWiki using it for?
+## Civil Service People Survey
 
-### Project Chardonnay: major bespoke customer solution: a web app
+A major bespoke customer solution: a web app
 used by thousands of users to query, display, and help analyse survey
 results from a people survey in an organisation with 500,000 employees.
 Frontend in Python, backend API in Go. About 7000 lines of code.
@@ -51,7 +61,8 @@ that all 7 years can be loaded in about 50 seconds.
 Queries are computed every time and consider "every row".
 Response times are in the few millisecond range for the worst
 queries (down from 10 minutes with our protoype in Python /
-PostgreSQL).
+PostgreSQL). Probably would have had to cache / precompute if
+doing it in Python (which an earlier version did).
 
 Go compiles to a static binary and the Docker image that runs
 the API has only 4 files in its filesystem: our compiled binary,
@@ -71,7 +82,7 @@ frontend is written in Go, with other parts written in Go and
 Python.
 
 
-### Hanoverd
+## Hanoverd
 
 https://github.com/scraperwiki/hanoverd
 
@@ -87,6 +98,7 @@ A few devops server components that manage and orchestrate our
 seamless build and deployment systems.
 
 Some code is available on github.com
+
 
 ## Type Declarations
 
