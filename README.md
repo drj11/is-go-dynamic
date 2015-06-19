@@ -147,7 +147,7 @@ you're writing a webserver, the server loop recovers from the
 panic and continues serving, so that the panic is isolated to
 the web request that caused it.
 
-## Resizable hash tables
+## Resizable hash tables [040]
 
 The hash-table-like datastructure is called the map, as in
 associative map. It's similar to dict() from Python:
