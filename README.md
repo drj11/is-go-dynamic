@@ -69,7 +69,7 @@ as one of the components in our security fence: even if you
 manage to escape the binary, you're inside a docker container
 with only one binary file and no system utilities.
 
-### pdftables.com
+## pdftables.com
 
 pdftables.com is a relatively new product from ScraperWiki; the
 frontend is written in Go, with other parts written in Go and
