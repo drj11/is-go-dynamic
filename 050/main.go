@@ -14,4 +14,11 @@ func main() {
 
 	delete(set, 3)
 	fmt.Println(set)
+
+        _, ok := set[3]
+        if ok {
+          fmt.Println("in")
+        } else {
+          fmt.Println("out")
+        }
 }

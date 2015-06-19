@@ -182,9 +182,43 @@ function:
 fmt.Println(len(spell))
 ```
 
-
 ## sets
 
+Go doesn't have a native set type, but they are easily modelled
+using maps.  A brief diversion into struct types.
 
+```
+struct{}
+```
+
+```
+map[int]struct{}
+```
+
+assignment adds an element to a set:
+
+```
+set[2] = struct{}{}
+```
+
+and the delete function, which works on any map, removes
+elements from a set:
+
+```
+delete(set, 3)
+```
+
+To test that an element is in a set, use the special form of
+assignment:
+
+```
+_, ok := set[3]
+```
+
+Notice that the value that the map lookup yields is always the
+empty struct. It's not particular interesting. We don't really
+need it, but we do need to supply a variable to satisfy the
+syntax. Using _ is a signal to the compiler that we are
+deliberately not using the value.
 
 ## defer()
